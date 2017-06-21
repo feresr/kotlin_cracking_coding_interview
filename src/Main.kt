@@ -12,6 +12,12 @@ fun main(args: Array<String>) {
 
     // 1.3
     //print(URLify("Mr John Smith      ", 13))
+
+    // 1.5
+    //println(oneAway("pale", "ple"))     //true
+    //println(oneAway("pales", "pale"))   //true
+    //println(oneAway("pale", "bale"))    //true
+    //println(oneAway("pale", "bake"))    //false
 }
 
 fun hasUniqueCharacters(s1: String): Boolean {
@@ -62,4 +68,48 @@ fun URLify(s: String, length: Int): String {
     }
 
     return ca.toString()
+}
+
+fun oneAway(s1: String, s2: String): Boolean {
+    if (Math.abs(s1.length - s2.length) > 1) return false
+
+    var allowedChanges = 1
+    if (s1.length == s2.length) {
+        for ((index, value) in s1.withIndex()) {
+            if (s2[index] != value) {
+                if (allowedChanges > 0) {
+                    allowedChanges--
+                } else {
+                    return false
+                }
+            }
+        }
+        return true
+    } else {
+        val longer: String
+        val shorter: String
+
+        if (s1.length > s2.length) {
+            longer = s1
+            shorter = s2
+        } else {
+            shorter = s1
+            longer = s2
+        }
+        var diff = 0
+        for ((i, v) in shorter.withIndex()) {
+            if (v != longer[i + diff]) {
+                if (diff < allowedChanges) {
+                    diff++
+                    if (v != longer[i + diff]) {
+                        return false
+                    }
+                } else {
+                    return false
+                }
+            }
+        }
+
+        return true
+    }
 }
