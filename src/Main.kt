@@ -18,6 +18,9 @@ fun main(args: Array<String>) {
     //println(oneAway("pales", "pale"))   //true
     //println(oneAway("pale", "bale"))    //true
     //println(oneAway("pale", "bake"))    //false
+
+    //1.6
+    //print(stringCompression("aaabbbbc"))
 }
 
 fun hasUniqueCharacters(s1: String): Boolean {
@@ -111,5 +114,35 @@ fun oneAway(s1: String, s2: String): Boolean {
         }
 
         return true
+    }
+}
+
+fun stringCompression(s1: String): String {
+    //check if it's worth it
+    var compressedLength = 0
+    var repeatCount = 0
+    for (i in 0 until s1.length) {
+        repeatCount++
+        if (i + 1 >= s1.length || s1[i] != s1[i + 1]) {
+            compressedLength += repeatCount.toString().length + 1
+            repeatCount = 0
+        }
+    }
+
+    if (compressedLength < s1.length) {
+        //worth it
+        val sb = StringBuilder(compressedLength)
+        repeatCount = 0
+        for (i in 0 until s1.length) {
+            repeatCount++
+            if (i + 1 >= s1.length || s1[i] != s1[i + 1]) {
+                sb.append(s1[i]).append(repeatCount)
+                repeatCount = 0
+            }
+        }
+
+        return sb.toString()
+    } else {
+        return s1
     }
 }
