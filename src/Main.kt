@@ -21,6 +21,16 @@ fun main(args: Array<String>) {
 
     //1.6
     //print(stringCompression("aaabbbbc"))
+
+    //1.8
+    /*zeroMatrix(arrayOf(
+            intArrayOf(1, 2, 5),
+            intArrayOf(1, 0, 3),
+            intArrayOf(5, 1, 3),
+            intArrayOf(9, 9, 9))) */
+
+    //1.9
+    //print(stringRotation("bottlewater", "erbottlewat"))
 }
 
 fun hasUniqueCharacters(s1: String): Boolean {
@@ -145,4 +155,46 @@ fun stringCompression(s1: String): String {
     } else {
         return s1
     }
+}
+
+fun zeroMatrix(matrix: Array<IntArray>): Array<IntArray> {
+
+    if (matrix.isEmpty()) return matrix
+    if (matrix.first().isEmpty()) return matrix
+
+    val columns = HashSet<Int>()
+    val rows = HashSet<Int>()
+    for ((rowIndex, row) in matrix.withIndex()) {
+        for ((columnIndex, value) in row.withIndex()) {
+            if (value == 0) {
+                columns.add(columnIndex)
+                rows.add(rowIndex)
+            }
+        }
+    }
+
+    for (rowIndex in rows) {
+        for ((columnIndex, _) in matrix.first().withIndex()) {
+            matrix[rowIndex][columnIndex] = 0
+        }
+    }
+    for (columnIndex in columns) {
+        for ((rowIndex, _) in matrix.withIndex()) {
+            matrix[rowIndex][columnIndex] = 0
+        }
+    }
+
+    //print, not part of the algorithm
+    for (row in matrix) {
+        for (value in row) {
+            print(" $value ")
+        }
+        println()
+    }
+    return matrix
+}
+
+fun stringRotation(s1: String, s2: String): Boolean {
+    if (s1.length != s2.length) return false
+    return (s2 + s2).contains(s1)
 }
