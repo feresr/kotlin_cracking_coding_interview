@@ -1,3 +1,5 @@
+import java.util.*
+
 /**
  * Created by feresr on 5/6/17.
  */
@@ -37,6 +39,39 @@ fun main(args: Array<String>) {
 
     /* 1.9
     print(stringRotation("bottlewater", "erbottlewat")) */
+
+    /* 2.6
+    print(isPalindrome(LinkedList().add(5).add(1).add(5))) */
+}
+
+fun isPalindrome(linkedList: LinkedList): Boolean {
+    val head = linkedList.head ?: return false
+    val stack: Stack<Int> = Stack()
+
+    var p1: Node? = head
+    var p2: Node? = head
+
+    while (p2?.next != null) {
+        p2 = p2.next
+        if (p2 != null) {
+            stack.add(p1?.value)
+            p2 = p2.next
+            if (p2 != null) {
+                p1 = p1?.next
+            }
+        }
+    }
+
+    p1 = p1?.next
+
+    while (!stack.isEmpty()) {
+        if (p1!= null && stack.pop() == p1.value) {
+            p1 = p1.next
+        } else {
+            return false
+        }
+    }
+    return true
 }
 
 fun hasUniqueCharacters(s1: String): Boolean {

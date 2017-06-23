@@ -5,10 +5,12 @@ class LinkedList {
 
     var head: Node? = null
 
-    fun add(value: Int) {
+    fun add(value: Int): LinkedList {
         val new = Node(value)
         new.next = head
         head = new
+
+        return this
     }
 
     fun show() {
