@@ -1,36 +1,42 @@
 /**
  * Created by feresr on 5/6/17.
  */
-
 fun main(args: Array<String>) {
 
-    // 1.1
-    //print(hasUniqueCharacters("abcd"))
+    /* 1.1
+    print(hasUniqueCharacters("abcd")) */
 
-    // 1.2
-    //print(permCheck("dog", "god"))
+    /* 1.2
+    print(permCheck("dog", "god")) */
 
-    // 1.3
-    //print(URLify("Mr John Smith      ", 13))
+    /* 1.3
+    print(URLify("Mr John Smith      ", 13)) */
 
-    // 1.5
-    //println(oneAway("pale", "ple"))     //true
-    //println(oneAway("pales", "pale"))   //true
-    //println(oneAway("pale", "bale"))    //true
-    //println(oneAway("pale", "bake"))    //false
+    /* 1.5
+    println(oneAway("pale", "ple"))    //true
+    println(oneAway("pales", "pale"))  //true
+    println(oneAway("pale", "bale"))   //true
+    println(oneAway("pale", "bake"))   //false */
 
-    //1.6
-    //print(stringCompression("aaabbbbc"))
+    /* 1.6
+    print(stringCompression("aaabbbbc")) */
 
-    //1.8
-    /*zeroMatrix(arrayOf(
+    /* 1.7
+    rotateMatrix(arrayOf(
+            intArrayOf(1, 2, 3, 0),
+            intArrayOf(4, 5, 6, 0),
+            intArrayOf(7, 8, 9, 0),
+            intArrayOf(0, 0, 0, 0))) */
+
+    /*1.8
+    zeroMatrix(arrayOf(
             intArrayOf(1, 2, 5),
             intArrayOf(1, 0, 3),
             intArrayOf(5, 1, 3),
             intArrayOf(9, 9, 9))) */
 
-    //1.9
-    //print(stringRotation("bottlewater", "erbottlewat"))
+    /* 1.9
+    print(stringRotation("bottlewater", "erbottlewat")) */
 }
 
 fun hasUniqueCharacters(s1: String): Boolean {
@@ -128,7 +134,7 @@ fun oneAway(s1: String, s2: String): Boolean {
 }
 
 fun stringCompression(s1: String): String {
-    //check if it's worth it
+//check if it's worth it
     var compressedLength = 0
     var repeatCount = 0
     for (i in 0 until s1.length) {
@@ -184,7 +190,7 @@ fun zeroMatrix(matrix: Array<IntArray>): Array<IntArray> {
         }
     }
 
-    //print, not part of the algorithm
+//print, not part of the algorithm
     for (row in matrix) {
         for (value in row) {
             print(" $value ")
@@ -197,4 +203,39 @@ fun zeroMatrix(matrix: Array<IntArray>): Array<IntArray> {
 fun stringRotation(s1: String, s2: String): Boolean {
     if (s1.length != s2.length) return false
     return (s2 + s2).contains(s1)
+}
+
+fun rotateMatrix(matrix: Array<IntArray>): Array<IntArray> {
+
+    if (matrix.isNotEmpty() && matrix.first().isNotEmpty() && matrix.size == matrix.first().size) {
+        val size = matrix.size
+        for (layer in 0 until size / 2) {
+            val end = size - layer - 1
+            for (j in layer until end) {
+                //top -> right
+                val right = matrix[j][end]
+                matrix[j][end] = matrix[layer][j]
+
+                //right -> bottom
+                val bottom = matrix[end][end - j]
+                matrix[end][end - j] = right
+
+                //bottom -> left
+                val left = matrix[end - j][layer]
+                matrix[end - j][layer] = bottom
+
+                //left -> top
+                matrix[layer][j] = left
+            }
+        }
+
+        for (i in 0 until size) {
+            for (j in 0 until size) {
+                print(" ${matrix[i][j]}")
+            }
+            println()
+        }
+    }
+
+    return matrix
 }
